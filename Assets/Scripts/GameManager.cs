@@ -1,33 +1,31 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Assets.Scripts.Managers
 {
-    public static GameManager Instance;
-
-    [SerializeField] private AudioSource _spawnSound;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        //TODO: What's a better way to implement this singleton?
-        var gameManagers = FindObjectsOfType<GameManager>();
+        public static GameManager Instance;
 
-        if (gameManagers.Length > 1)
-        {
-            Destroy(gameObject);
-        }
-        else if (gameManagers.Length == 0)
-        {
-            Debug.LogError("No GameManager found in scene. Please add one to the scene.");
-        }
-        else
-        {
-            Instance = gameManagers[0];
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+        [SerializeField] private AudioSource _spawnSound;
 
-    public void PlaySpawnSound()
-    {
-        _spawnSound.Play();
+        private void Awake()
+        {
+            //TODO: What's a better way to implement this singleton?
+            var gameManagers = FindObjectsOfType<GameManager>();
+
+            if (gameManagers.Length > 1)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = gameManagers[0];
+            }
+        }
+
+        public void PlaySpawnSound()
+        {
+            _spawnSound.Play();
+        }
     }
 }
