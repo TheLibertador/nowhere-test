@@ -4,22 +4,22 @@ namespace Assets.Scripts.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
+        public static GameManager Instance { get; private set; }
 
         [SerializeField] private AudioSource _spawnSound;
 
         private void Awake()
         {
             //TODO: What's a better way to implement this singleton?
-            var gameManagers = FindObjectsOfType<GameManager>();
-
-            if (gameManagers.Length > 1)
+            //We don't need to check all the objects to make sure we have only one instance.
+            
+            if (Instance != null && Instance != this)
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
             else
             {
-                Instance = gameManagers[0];
+                Instance = this;
             }
         }
 
