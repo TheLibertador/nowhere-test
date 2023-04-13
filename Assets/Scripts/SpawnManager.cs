@@ -66,20 +66,28 @@ namespace Assets.Scripts
         {
             //TODO: Spawn a random color of ball at the position of the mouse click and play spawn sound.
             //OPTIONAL: Use events for playing sounds.
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            mousePosition.z = 0f;
-            InstantiateBall(mousePosition, name);
+            InstantiateBall(AdjustedInputToWorldPosition(mousePosition), name);
+            EventsManager.Instance.BallGenerated();
         }
 
         private Ball InstantiateBall(Vector3 position, string name)
         { 
             //TODO: What's a better way to do this?
             //There is no need for gameObject declaration. We just need to use the ball component of the objects.
+            
             Ball ball = Instantiate(_ballPrefab, position, Quaternion.identity).GetComponent<Ball>();
             ball.SetName(name);
             ball.SetColor();
             _balls.Add(ball);
             return ball;
+        }
+
+        private Vector3 AdjustedInputToWorldPosition(Vector3 position)
+        {
+            position = Camera.main.ScreenToWorldPoint(position);
+            position.z = 0f;
+
+            return position;
         }
     }
 }
