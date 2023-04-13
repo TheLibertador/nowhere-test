@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -23,7 +24,12 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void PlaySpawnSound()
+        private void Start()
+        {
+            EventsManager.Instance.onBallGenerated += PlaySpawnSound;
+        }
+
+        private void PlaySpawnSound()
         {
             _spawnSound.Play();
         }
